@@ -1,0 +1,11 @@
+a 100
+mov AH,02
+mov DL,2F
+add DL,01
+cmp DL,39
+ja 110
+int 21
+loop 104
+int 20
+
+g

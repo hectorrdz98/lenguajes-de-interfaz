@@ -1,0 +1,14 @@
+a 100
+mov AH,02
+mov DL,2f
+mov CX,08
+inc DL
+int 21
+mov BL,DL
+mov DL,20
+int 21
+mov DL,BL
+loop 107
+int 20
+
+g

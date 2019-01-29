@@ -1,0 +1,10 @@
+a 100
+mov AH,02
+mov DL,2f
+mov CX,08
+inc DL
+int 21
+loop 107
+int 20
+
+g
