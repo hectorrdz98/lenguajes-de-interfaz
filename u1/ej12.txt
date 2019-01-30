@@ -1,0 +1,11 @@
+a 100
+jmp 115
+db 0d,0a,"Hector Rodriguez",24
+mov cx,14
+mov dx,102
+mov ah,09
+int 21
+loop 11D
+int 20
+
+g

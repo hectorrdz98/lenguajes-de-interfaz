@@ -1,0 +1,9 @@
+a 100
+mov AX,03
+mov BX,00
+cmp AX,1E
+je 112
+add BX,AX
+add AX,03
+jmp 106
+int 20
