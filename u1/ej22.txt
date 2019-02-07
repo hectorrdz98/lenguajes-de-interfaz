@@ -1,0 +1,12 @@
+a 100
+mov ax,[011A]
+add ax,[011C]
+add ax,25
+mov [011E],ax
+mov word ptr [0120],25
+mov byte ptr [0122],30
+mov ah,0
+int 16
+int 20
+
+g

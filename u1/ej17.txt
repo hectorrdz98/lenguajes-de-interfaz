@@ -1,0 +1,14 @@
+a 100
+mov cl,3
+mov ah,9
+mov dx,010b
+int 21
+loop 107
+db 0d,0a,"A",0d,0a
+db 0d,0a,"B B",0d,0a
+db 0d,0a,"C C C",0d,0a,24
+mov ah,0
+int 16
+int 20
+
+g

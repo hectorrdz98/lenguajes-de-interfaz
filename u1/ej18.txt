@@ -1,0 +1,19 @@
+a 100
+mov al,14
+mov bl,0a
+div bl
+mov bx,ax
+add bh,30
+add bl,30
+mov dl,bl
+mov ah,02
+int 21
+mov dl,2E
+int 21
+mov dl,bh
+int 21
+mov ah,0
+int 16
+int 20
+
+g

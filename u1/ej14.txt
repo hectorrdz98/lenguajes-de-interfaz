@@ -1,0 +1,15 @@
+a 100
+jmp 114
+db 0d,0a,"Hello world !",0d,0a,24
+mov dx,word ptr [0102]
+mov ah,09
+int 21
+mov ah,0
+int 16
+int 20
+
+h 0122 0100
+rcx
+0022
+n sietedos.com
+w

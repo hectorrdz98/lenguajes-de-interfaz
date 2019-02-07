@@ -1,0 +1,13 @@
+a 100
+mov cl,0a
+mov ah,09
+mov dx,010D
+int 21
+loop 107
+jmp 121
+db 0d,0a,"hola crayola...",0d,0a,24
+mov ah,0
+int 16
+int 20
+
+g

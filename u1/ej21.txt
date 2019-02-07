@@ -1,0 +1,25 @@
+a 100
+jmp 127
+db 0d,0a,"obtiene al mayor de tres digitos",0d,0a,24
+mov dx,word ptr 0102
+mov ah,09
+int 21
+jmp 156
+db 0d,0a,"solo variables de un unico digito",0d,0a,24
+mov dx,word ptr 0130
+mov ah,09
+int 21
+jmp 17C
+db 0d,0a,"ingresa el valor uno ===> ",0d,0a,24
+mov dx,word ptr 015F
+mov ah,09
+int 21
+mov ah,1
+int 21
+mov bh,al
+mov dl,bh
+mov ah,02
+int 21
+int 20
+
+g

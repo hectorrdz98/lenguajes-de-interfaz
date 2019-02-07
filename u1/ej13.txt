@@ -1,0 +1,33 @@
+a 100
+mov AH,02
+mov DL,0a
+int 21
+mov DL,0d
+int 21
+mov BX,01
+mov DL,41
+cmp BX,06
+ja 13B
+mov CX,BX
+int 21
+mov DH,DL
+mov DL,20
+int 21
+mov DL,DH
+loop 116
+mov DH,DL
+mov DL,0d
+int 21
+mov DL,0a
+int 21
+mov DL,0d
+int 21
+mov DL,0a
+int 21
+mov DL,DH
+inc DL
+inc BX
+jmp 10F
+int 20
+
+g

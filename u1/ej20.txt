@@ -1,0 +1,12 @@
+a 100
+mov ax,0
+mov ah,1
+int 21
+mov dl,al
+mov ah,02
+int 21
+int 20
+
+g
+
+2

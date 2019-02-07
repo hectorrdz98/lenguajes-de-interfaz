@@ -1,0 +1,21 @@
+a 100
+mov al,0
+mov cl,1
+cmp cl,5
+ja 10F
+add al,cl
+inc cl
+jmp 104
+mov bl,A
+div bl
+mov bx,ax
+mov ah,02
+add bh,30
+add bl,30
+mov dl,bl
+int 21
+mov dl,bh
+int 21
+int 20
+
+g
