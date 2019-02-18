@@ -8,5 +8,3 @@ mov byte ptr [0122],30
 mov ah,0
 int 16
 int 20
-
-g

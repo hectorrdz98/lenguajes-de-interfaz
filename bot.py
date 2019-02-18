@@ -8,7 +8,7 @@ file = open(fileName, 'r')
 
 for n in range(delay):
     time.sleep(1)
-    print('Ejecutando en',n+1,'s.')
+    print('Ejecutando en',delay-n,'s.')
 
 py.typewrite('debug\n')
 
@@ -18,15 +18,22 @@ for line in file:
     if not extrasPart:
 
         commands = line.split(' ')
-        time.sleep(0.1)
-        py.typewrite(line)
+        time.sleep(0.2)
 
-        if commands[0] == 'g\n':
-            extrasPart = not extrasPart
-            print("\nFinalizada la carga de datos...\
-                \nInicializando envio de variables...")
-            time.sleep(0.2)
+        #print(commands)
+
+        for command in commands:
+            py.typewrite(command)
+            if command == 'g\n':
+                extrasPart = not extrasPart
+                print("\nFinalizada la carga de datos...\
+                    \nInicializando envio de variables...\n")
+                time.sleep(0.2)
+            else:
+                py.typewrite(' ')
+
     else:
         if not line == '\n':
+            print("Mando un:", [line])
             time.sleep(0.1)
             py.typewrite(line)
