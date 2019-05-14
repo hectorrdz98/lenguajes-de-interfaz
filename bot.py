@@ -1,7 +1,7 @@
 import pyautogui as py
 import time
 
-fileName = 'u1/ej20.txt'
+fileName = 'u1/ex.txt'
 delay = 3
 
 file = open(fileName, 'r')
@@ -23,14 +23,15 @@ for line in file:
         #print(commands)
 
         for command in commands:
-            py.typewrite(command)
+            for char in command:
+                py.typewrite(char)
             if command == 'g\n':
                 extrasPart = not extrasPart
                 print("\nFinalizada la carga de datos...\
                     \nInicializando envio de variables...\n")
                 time.sleep(0.2)
             else:
-                py.typewrite(' ')
+                    py.typewrite(' ')
 
     else:
         if not line == '\n':

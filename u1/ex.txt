@@ -1,0 +1,55 @@
+a 100
+mov ax,0;Limpiamos los registros
+mov bx,0
+mov cx,0
+mov dx,0
+mov ah,09;Servicio de impresion
+jmp 122
+db 0d,0a,"Ingresa el n1: ",24
+mov dx,110
+int 21;Imprimir el mensaje n1
+mov ah,1
+int 21;Solicitar n1
+cmp al,30
+jb 100
+cmp al,39
+ja 100
+mov bl,al;Guardar en bl n1
+mov ah,09;Servicio de impresion
+jmp 14B
+db 0d,0a,"Ingresa el n2: ",24
+mov dx,139
+int 21;Imprimir el mensaje n2
+mov ah,1
+int 21;Solicitar n2
+cmp al,30
+jb 100
+cmp al,39
+ja 100
+mov bh,al;Guardar en bh n2
+add bl,-30
+add bh,-30
+mov ax,0
+mov al,bl
+mul bh;Mult n1 x n2
+mov cl,0a
+div cl;Div entre a lo de ax
+mov cx,0
+mov cl,al;G en cl 1d
+mov ch,ah;G en ch 2d
+add cl,30
+add ch,30
+mov ah,09
+jmp 18F
+db 0d,0a,"La mult es: "24
+mov dx,180
+int 21
+mov ah,02
+mov dl,cl
+int 21;Imprimir char1
+mov ah,02
+mov dl,ch
+int 21;Imprimir char2
+int 20;Acabar
+
+g
