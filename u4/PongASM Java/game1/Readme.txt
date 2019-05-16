@@ -58,7 +58,9 @@ To compile using an extern jar:
 
 1.- import processing.core.Class
 2.- javac -cp .;processing.core.jar mysource.java
+    javac -cp .;* mysource.java
 3.- java -cp .;processing.core.jar mysource
+    java -cp .;* mysource
 
 
 Building jar
@@ -71,6 +73,6 @@ MANIFEST.MF
 
 Manifest-Version: 1.0
 Created-By: 1.8.0_191 (Oracle Corporation)
-Class-Path: processing.core.jar
-Main-Class: Prueba
+Class-Path: processing.core.jar processing.sound.jar jsyn-20171016.jar javamp3-1.0.3.jar
+Main-Class: PongASM
 \n
