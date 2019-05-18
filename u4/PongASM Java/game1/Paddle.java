@@ -8,7 +8,7 @@ public class Paddle {
     public int moving;
 
     public Paddle(int height, int pos[], int vel) {
-        this.width = 50;
+        this.width = 25;
         this.heigth = height;
         this.pos = pos;
         this.vel = vel;

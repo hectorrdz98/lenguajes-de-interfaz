@@ -3,7 +3,6 @@ import processing.core.*;
 import processing.sound.*;
 import java.awt.Desktop;
 import java.net.URI;
-import java.util.ArrayList;
 
 public class Interfaz extends PApplet {
     
@@ -27,8 +26,11 @@ public class Interfaz extends PApplet {
     int backgroundColor[];
 
     SoundFile file;
+    SoundFile pong;
     boolean audioPlaying = false;
-    boolean withAudio = true;
+    boolean withAudio = false;
+
+    boolean keysPressed[] = { false, false, false, false };
 
     Interfaz (HectorASM asm) {
         this.asm = asm;
@@ -40,7 +42,7 @@ public class Interfaz extends PApplet {
 
     public void setup() {
         // All in scene_setup()
-        frame.setTitle("PongASM");
+        surface.setTitle("PongASM");
         PImage icon = loadImage("icon.jpg");
         surface.setIcon(icon);
     }
@@ -83,17 +85,22 @@ public class Interfaz extends PApplet {
 
                 // Left paddle move
                 if (key == 'w') {
-                    leftPaddle.moving = -1;
+                    // leftPaddle.moving = -1;
+                    keysPressed[0] = true;
                 } else if (key == 's') {
-                    leftPaddle.moving = 1;
+                    // leftPaddle.moving = 1;
+                    keysPressed[1] = true;
                 }
 
                 // Right paddle move
                 if (keyCode == UP) {
-                    rightPaddle.moving = -1;
+                    // rightPaddle.moving = -1;
+                    keysPressed[2] = true;
                 } else if (keyCode == DOWN) {
-                    rightPaddle.moving = 1;
+                    // rightPaddle.moving = 1;
+                    keysPressed[3] = true;
                 }
+
             } else {
                 if (key == 'r') {
                     gameOver = false;
@@ -102,8 +109,9 @@ public class Interfaz extends PApplet {
                     backgroundColor = new int[]{0, 0, 0};
 
                     // Paddle creation
-                    leftPaddle = new Paddle( 150, new int[]{ 50, 50 }, 5 );
-                    rightPaddle = new Paddle( 150, new int[]{ asm.sub(width, 50), 50 }, 5 );
+                    leftPaddle = new Paddle( 100, new int[]{ 50, 50 }, 10 );
+                    rightPaddle = new Paddle( 100, new int[]{ asm.sub(width, 50), 50 }, 10 );
+                    keysPressed = new boolean[]{ false, false, false, false };
 
                     // Ball creation
                     ball = new Ball( new int[]{ asm.div(width, 2), asm.div(height, 2) }, new int[]{ 255, 255, 255 }, new int[]{ 0, 0 } );
@@ -113,6 +121,28 @@ public class Interfaz extends PApplet {
                     leftPaddle.pos[1] = asm.sub(asm.div(height, 2), asm.div(leftPaddle.heigth, 2));
                     rightPaddle.pos[1] = asm.sub(asm.div(height, 2), asm.div(rightPaddle.heigth, 2));
                 }   
+            }
+        }         
+    }
+
+    public void keyReleased() {
+        if (scene.equals("game")) {
+            // If not gameOver
+            if (!gameOver) {
+                // Left paddle move
+                if (key == 'w') {
+                    keysPressed[0] = false;
+                } else if (key == 's') {
+                    keysPressed[1] = false;
+                }
+
+                // Right paddle move
+                if (keyCode == UP) {
+                    keysPressed[2] = false;
+                } else if (keyCode == DOWN) {
+                    keysPressed[3] = false;
+                }
+
             }
         }         
     }
@@ -183,8 +213,8 @@ public class Interfaz extends PApplet {
 
     void scene_setup() {
         // Paddle creation
-        leftPaddle = new Paddle( 150, new int[]{ 50, 50 }, 5 );
-        rightPaddle = new Paddle( 150, new int[]{ asm.sub(width, 50), 50 }, 5 );
+        leftPaddle = new Paddle( 100, new int[]{ 50, 50 }, 10 );
+        rightPaddle = new Paddle( 100, new int[]{ asm.sub(width, 50), 50 }, 10 );
 
         // Ball creation
         ball = new Ball( new int[]{ asm.div(width, 2), asm.div(height, 2) }, new int[]{ 255, 255, 255 }, new int[]{ 0, 0 } );
@@ -197,6 +227,7 @@ public class Interfaz extends PApplet {
         // Load sound file
         if (withAudio)
             file = new SoundFile(this, "menu.mp3");
+        pong = new SoundFile(this, "pong.mp3");
         scene = "init";
     }
 
@@ -435,6 +466,7 @@ public class Interfaz extends PApplet {
                     ball.vel[0] = asm.mul(ball.vel[0], -1);
                     counter = asm.inc(counter);
                     points = asm.inc(points);
+                    pong.play();
                 }
             }
 
@@ -445,6 +477,7 @@ public class Interfaz extends PApplet {
                     ball.vel[0] = asm.mul(ball.vel[0], -1);
                     counter = asm.inc(counter);
                     points = asm.inc(points);
+                    pong.play();
                 }    
             }
         }
@@ -488,6 +521,38 @@ public class Interfaz extends PApplet {
 
         // if not gameOver
         if (!gameOver) {
+
+            // Check move
+
+            // W key is pressed
+            if (keysPressed[0] == true) {
+                if (leftPaddle.pos[1] > 0) {
+                    leftPaddle.pos[1] = asm.add(leftPaddle.pos[1], asm.mul(leftPaddle.vel, -1));
+                }      
+            }
+            
+            // S key is pressed
+            if (keysPressed[1]) {
+                if (asm.add(leftPaddle.pos[1], leftPaddle.heigth) < height) {
+                    leftPaddle.pos[1] = asm.add(leftPaddle.pos[1], leftPaddle.vel);
+                }
+            }
+
+            // UP key is pressed    
+            if (keysPressed[2]) {
+                if (rightPaddle.pos[1] > 0) {
+                    rightPaddle.pos[1] = asm.add(rightPaddle.pos[1], asm.mul(rightPaddle.vel, -1));
+                }
+            } 
+            
+            // DOWN key is pressed
+            if (keysPressed[3]) {
+                if (asm.add(rightPaddle.pos[1], rightPaddle.heigth) < height) {
+                    rightPaddle.pos[1] = asm.add(rightPaddle.pos[1], rightPaddle.vel);
+                }  
+            }  
+
+            /*
             // Check move
             if (leftPaddle.moving != 0) {
                 if (leftPaddle.moving == 1) {
@@ -512,6 +577,7 @@ public class Interfaz extends PApplet {
                     }  
                 }  
             }
+            */
         }
     }
 
